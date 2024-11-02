@@ -1,13 +1,26 @@
 // import mongoose from "mongoose";
 // import { Db_Name } from "./constants";
-// import express from 'express'
+import express, { application } from 'express'
 import dotenv from 'dotenv'
 import DBConnect from "./db/db.js";
+import app from '../src/app.js'
+
 
 dotenv.config({path: './env'})
 
-DBConnect()
+// const app = express()
 
+DBConnect()
+.then(()=>{
+  application.listen(process.env.PORT || 8000, ()=>{
+    console.log(`server is running well on PORT:${process.env.PORT}`);
+    
+  })
+})
+.catch((err)=>{
+  console.log('oppps mongodb connection failed', err);
+  
+})
 
 
 //  const app = express()
